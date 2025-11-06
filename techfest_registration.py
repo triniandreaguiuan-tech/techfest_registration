@@ -29,21 +29,10 @@ for i in range(len(participants)):
     print(f"{i + 1}. {participants[i]['name']} - {participants[i]['track']}")
 
 #task 3: track diversity report
-print("\nTracks offered in this event: \nCybersecurity, Data, Game Dev, Information\n")
-csec = 0
-data = 0
-gameDev = 0
-inform = 0
+uniqueTracks_offered = {p["track"] for p in participants}
 
-for p in participants:
-    if p["track"] == "Cybersecurity":
-        csec += 1
-    elif p["track"] == "Data":
-        data += 1
-    elif p["track"] == "Game Dev":
-        gameDev += 1
-    elif p["track"] == "Information":
-        inform += 1
+print("\nTracks offered in this event:\n", ", ".join(uniqueTracks_offered))
+tracks_count = {track: 0 for track in uniqueTracks_offered}
 
 #task 4: duplicate name detection
 names = set()
@@ -51,9 +40,21 @@ duplicate = False
 
 for p in participants:
     if p["name"] in names:
-        print("Duplicate name found:", p["name"])
+        print("\nDuplicate name found:", p["name"])
         duplicate = True
     else:
         names.add(p["name"])
 if not duplicate:
     print("No duplicate names.")
+
+#task 5: track summary report
+print("\nParticipants per track:")
+for p in participants:
+    tracks_count[p["track"]] += 1
+
+print()
+for track, count in tracks_count.items():
+    print(f"{track}: {count}")
+
+if len(uniqueTracks_offered) < 2:
+    print("\nNot enough variety in tracks.")
