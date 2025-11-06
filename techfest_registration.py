@@ -1,5 +1,6 @@
 # GUIUAN, Trini Andrea - APPDAET Midterms
 # Fully committed to git! :)
+from multiprocessing.reduction import duplicate
 
 participants = []
 
@@ -43,3 +44,16 @@ for p in participants:
         gameDev += 1
     elif p["track"] == "Information":
         inform += 1
+
+#task 4: duplicate name detection
+names = set()
+duplicate = False
+
+for p in participants:
+    if p["name"] in names:
+        print("Duplicate name found:", p["name"])
+        duplicate = True
+    else:
+        names.add(p["name"])
+if not duplicate:
+    print("No duplicate names.")
